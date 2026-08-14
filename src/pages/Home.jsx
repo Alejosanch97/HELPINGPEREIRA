@@ -31,9 +31,22 @@ async function fetchTransportes() {
   return Array.isArray(d) ? d : [];
 }
 
-async function postAction(body) {
-  const res = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) });
-  return res.json();
+async function postAction(body, intentos = 3) {
+  for (let i = 0; i < intentos; i++) {
+    try {
+      const res = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) });
+      const data = await res.json();
+      // si el backend estaba ocupado, espera un poco y reintenta
+      if (data && data.status === "error" && /ocupado/i.test(data.message || "") && i < intentos - 1) {
+        await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+        continue;
+      }
+      return data;
+    } catch (e) {
+      if (i === intentos - 1) throw e;
+      await new Promise((r) => setTimeout(r, 800 * (i + 1)));
+    }
+  }
 }
 function distanciaKm(a, b) {
   const R = 6371, dLat = ((b[0]-a[0])*Math.PI)/180, dLng = ((b[1]-a[1])*Math.PI)/180;
