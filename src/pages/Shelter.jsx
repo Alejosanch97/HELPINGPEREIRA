@@ -55,6 +55,7 @@ export const Shelter = () => {
   const [tab, setTab] = useState("resumen");
   const [loading, setLoading] = useState(false);
   const [modalCrear, setModalCrear] = useState(false);
+  const [miUbicacion, setMiUbicacion] = useState(null);
 
   useEffect(() => {
     const s = sessionStorage.getItem(SESSION_KEY);
@@ -64,6 +65,15 @@ export const Shelter = () => {
         if (c === CLAVE) { setClave(c); setMiShelterId(shelter || null); }
       } catch (_) {}
     }
+  }, []);
+
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      (p) => setMiUbicacion([p.coords.latitude, p.coords.longitude]),
+      () => {},
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 30000 }
+    );
   }, []);
 
   const cargarTodo = useCallback(async () => {
@@ -94,6 +104,20 @@ export const Shelter = () => {
   };
 
   const miShelter = useMemo(() => shelters.find((s) => clean(s.id_shelter) === clean(miShelterId)), [shelters, miShelterId]);
+
+  // refugios dentro del radio (para la pantalla de selección)
+  const sheltersCercanos = useMemo(() => {
+    if (!miUbicacion) return shelters.map((s) => ({ ...s, dist: null }));
+    return shelters
+      .map((s) => {
+        const lat = num(s.latitud), lng = num(s.longitud);
+        const dist = lat && lng ? distanciaKm(miUbicacion, [lat, lng]) : null;
+        return { ...s, dist };
+      })
+      .filter((s) => s.dist != null && s.dist <= RADIO_KM)
+      .sort((a, b) => a.dist - b.dist);
+  }, [shelters, miUbicacion]);
+
   const miPos = useMemo(() => miShelter && num(miShelter.latitud) ? [num(miShelter.latitud), num(miShelter.longitud)] : null, [miShelter]);
 
   const miInventario = useMemo(() =>
@@ -157,14 +181,16 @@ export const Shelter = () => {
 
           {loading ? (
             <div className="sh-skel-wall">{[0,1,2].map((i) => <div key={i} className="sh-skel" />)}</div>
-          ) : shelters.length === 0 ? (
-            <div className="sh-empty sh-glass"><p>Aún no hay puntos de ayuda. Crea el primero con tu ubicación.</p></div>
+          ) : !miUbicacion ? (
+            <div className="sh-empty sh-glass"><p>📍 Buscando tu ubicación para mostrarte los puntos de ayuda cercanos…</p></div>
+          ) : sheltersCercanos.length === 0 ? (
+            <div className="sh-empty sh-glass"><p>No hay puntos de ayuda a menos de {RADIO_KM} km de ti. Crea el tuyo con el botón de arriba.</p></div>
           ) : (
             <ul className="sh-select-list">
-              {shelters.map((s) => (
+              {sheltersCercanos.map((s) => (
                 <li key={s.id_shelter}>
                   <button className="sh-select-item sh-glass" onClick={() => elegirShelter(clean(s.id_shelter))}>
-                    <div><b>{clean(s.nombre)}</b><small>{clean(s.telefono) || "Sin teléfono"}</small></div>
+                    <div><b>{clean(s.nombre)}</b><small>{clean(s.telefono) || "Sin teléfono"}{s.dist != null ? ` · ${s.dist.toFixed(1)} km` : ""}</small></div>
                     <span className="sh-select-arrow">→</span>
                   </button>
                 </li>
