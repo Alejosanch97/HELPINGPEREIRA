@@ -4,6 +4,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+* { box-sizing: border-box; }
+
 .ax-home {
   --bg: #eef3fb;
   --bg2: #e2ebf7;

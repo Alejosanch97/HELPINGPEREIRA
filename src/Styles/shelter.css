@@ -77,7 +77,16 @@
 /* ---- STATS ---- */
 .sh-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 8px; }
 .sh-stat { border-radius: 16px; padding: 16px 8px; text-align: center; }
-.sh-stat b { display: block; font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; line-height: 1; color: var(--ink); word-break: break-word; }
+.sh-stat b {
+  display: block;
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(15px, 5vw, 22px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--ink);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
 .sh-stat span { display: block; font-size: 10px; color: var(--ink-soft); margin-top: 6px; }
 
 /* ---- CARDS ---- */
@@ -219,4 +228,54 @@
 
 .sh-envio-tel:hover {
   text-decoration: underline;
+}
+
+.sh-stat-tel {
+  font-size: clamp(13px, 4vw, 17px) !important;
+}
+
+/* ---- responsive: stats más respirados en móvil ---- */
+@media (max-width: 480px) {
+  .sh-stats {
+    gap: 8px;
+  }
+  .sh-stat {
+    padding: 14px 6px;
+  }
+  .sh-stat span {
+    font-size: 9.5px;
+  }
+  .sh-content {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .sh-h2 {
+    font-size: 18px;
+  }
+}
+
+/* muy angosto: los stats pasan a 2 columnas + 1 abajo para no aplastarse */
+@media (max-width: 360px) {
+  .sh-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .sh-stat:last-child {
+    grid-column: 1 / -1;  /* el contacto ocupa toda la fila abajo */
+  }
+}
+
+/* ---- responsive: header sin apretar en móvil ---- */
+@media (max-width: 480px) {
+  .sh-top {
+    padding-left: 14px;
+    padding-right: 14px;
+    gap: 8px;
+  }
+  .sh-brand-txt small {
+    display: none;   /* "Panel de gestión" se oculta en pantallas chicas */
+  }
+  .sh-tabs {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
 }

@@ -305,7 +305,7 @@ function ResumenTab({ miShelter, misPedidos, miInventario, onRefrescar, loading 
       <div className="sh-stats">
         <div className="sh-stat sh-glass"><b>{miInventario.length}</b><span>Insumos en stock</span></div>
         <div className="sh-stat sh-glass"><b>{pend.length}</b><span>Mis pedidos activos</span></div>
-        <div className="sh-stat sh-glass"><b>{clean(miShelter?.telefono) || "—"}</b><span>Contacto</span></div>
+        <div className="sh-stat sh-glass"><b className="sh-stat-tel">{clean(miShelter?.telefono) || "—"}</b><span>Contacto</span></div>
       </div>
 
       <h3 className="sh-h3">Mis pedidos</h3>
