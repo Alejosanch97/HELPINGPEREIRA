@@ -81,15 +81,16 @@ export const Home = () => {
     return () => { clearTimeout(stop); navigator.geolocation.clearWatch(watchId); };
   }, [cargar]);
 
+  const yaEncuadrado = useRef(false);
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !miPos) return;
+    if (!map || !miPos || yaEncuadrado.current) return;
+    yaEncuadrado.current = true;
     const t = setTimeout(() => {
       try {
         map.invalidateSize();
-        map.setView(miPos, 13, { animate: true });
-        map.fitBounds(L.latLng(miPos).toBounds(RADIO_KM * 2 * 1000), { padding: [20, 20] });
-      } catch (e) { try { map.setView(miPos, 12); } catch (_) {} }
+        map.fitBounds(L.latLng(miPos).toBounds(RADIO_KM * 2 * 1000), { padding: [20, 20], animate: false });
+      } catch (e) { try { map.setView(miPos, 13, { animate: false }); } catch (_) {} }
     }, 300);
     return () => clearTimeout(t);
   }, [miPos]);
@@ -158,7 +159,7 @@ export const Home = () => {
                   setTimeout(() => {
                     try {
                       map.invalidateSize();
-                      map.fitBounds(L.latLng(miPos).toBounds(RADIO_KM * 2 * 1000), { padding: [20, 20] });
+                      map.fitBounds(L.latLng(miPos).toBounds(RADIO_KM * 2 * 1000), { padding: [20, 20], animate: false });
                     } catch (_) {}
                   }, 350);
                 }}>
