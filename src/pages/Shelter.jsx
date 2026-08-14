@@ -129,8 +129,6 @@ export const Shelter = () => {
         <header className="sh-top">
           <div className="sh-brand"><span className="sh-logo">◈</span><div className="sh-brand-txt"><b>PUNTO DE AYUDA</b><small>Selecciona el tuyo</small></div></div>
           <div className="sh-top-actions">
-            <Link to="/" className="sh-inicio-btn" title="Ir al inicio">
-            </Link>
             <button className="sh-logout" onClick={salir} title="Cerrar sesión">⏻</button>
           </div>
         </header>
@@ -183,9 +181,7 @@ export const Shelter = () => {
           <div className="sh-brand-txt"><b>{clean(miShelter?.nombre) || "Mi shelter"}</b><small>Panel de gestión</small></div>
         </div>
         <div className="sh-top-actions">
-          <button className="sh-change" onClick={() => setMiShelterId(null)} title="Cambiar shelter">⇄</button>
-          <Link to="/" className="sh-inicio-btn" title="Ir al inicio">
-          </Link>
+          <button className="sh-change" onClick={() => setMiShelterId(null)} title="Cambiar refugio">⇄</button>
           <button className="sh-logout" onClick={salir} title="Cerrar sesión">⏻</button>
         </div>
       </header>
