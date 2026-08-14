@@ -284,7 +284,6 @@ export const Admin = () => {
         </div>
         <div className="ad-top-actions">
           <Link to="/" className="ad-home-link" title="Ver Home público">
-            <span className="ad-home-icon">🏠</span>
             <span className="ad-home-txt">Inicio</span>
           </Link>
           <button className="ad-logout" onClick={salir} title="Salir">
