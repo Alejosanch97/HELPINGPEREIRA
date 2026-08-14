@@ -324,6 +324,23 @@ function ResumenTab({ miShelter, misPedidos, miInventario, onRefrescar, loading 
                   <li key={i}><span>{clean(it.categoria)}</span><b>{num(it.cantidad_solicitada)} {clean(it.unidad_medida)}</b></li>
                 ))}
               </ul>
+
+              {/* estado del envío */}
+              {clean(p.estado) === "EN_RUTA" && (
+                <div className="sh-envio">
+                  {clean(p.shelter_responde) && (
+                    <span className="sh-envio-linea">📦 Responde: <b>{clean(p.shelter_responde)}</b></span>
+                  )}
+                  {clean(p.transportista) ? (
+                    <span className="sh-envio-linea sh-envio-ok">
+                      🚗 Lo transporta: <b>{clean(p.transportista)}</b>
+                      {clean(p.transportista_tel) && <a href={`tel:${clean(p.transportista_tel)}`} className="sh-envio-tel">☎ {clean(p.transportista_tel)}</a>}
+                    </span>
+                  ) : (
+                    <span className="sh-envio-linea sh-envio-buscando">🔎 Buscando quién lo transporte…</span>
+                  )}
+                </div>
+              )}
             </li>
           ))}
         </ul>

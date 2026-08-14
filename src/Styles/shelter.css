@@ -174,3 +174,49 @@
 .sh-gps-box { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 14px; border-radius: 12px; background: rgba(255,159,28,0.1); border: 1px solid rgba(255,159,28,0.3); font-size: 12.5px; font-weight: 600; color: #a86a00; text-align: center; }
 .sh-gps-box.ok { background: rgba(31,184,119,0.1); border-color: rgba(31,184,119,0.3); color: #0e7a4d; }
 .sh-gps-retry { border: none; background: transparent; color: #a86a00; font-weight: 700; font-size: 13px; cursor: pointer; }
+
+/* estado del envío en Resumen */
+.sh-envio {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sh-envio-linea {
+  font-size: 13px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sh-envio-linea b {
+  color: #1e293b;
+}
+
+.sh-envio-ok {
+  color: #15803d;
+}
+
+.sh-envio-ok b {
+  color: #15803d;
+}
+
+.sh-envio-buscando {
+  color: #b45309;
+  font-style: italic;
+}
+
+.sh-envio-tel {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sh-envio-tel:hover {
+  text-decoration: underline;
+}
