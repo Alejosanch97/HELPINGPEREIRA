@@ -188,6 +188,7 @@ export const Home = () => {
                         {pendPorShelter[clean(s.id_shelter)]
                           ? <span className="ax-popup-badge">{pendPorShelter[clean(s.id_shelter)]} pedido(s)</span>
                           : <span className="ax-popup-ok">Sin pedidos</span>}
+                        <a href={`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}`} target="_blank" rel="noopener noreferrer" className="ax-popup-maps">🧭 Cómo llegar</a>
                       </div>
                     </Popup>
                   </Marker>
