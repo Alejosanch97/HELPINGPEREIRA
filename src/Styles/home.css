@@ -1766,6 +1766,30 @@ html {
   transform: scale(0.96);
 }
 
+.leaflet-popup-content .ax-popup-maps,
+.ax-popup-maps {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--brand) !important;
+  color: #fff !important;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none !important;
+  text-align: center;
+}
+.ax-popup-maps:hover,
+.ax-popup-maps:focus {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+.ax-popup-maps:active {
+  transform: scale(0.96);
+}
+
 /* En pantallas anchas, centra la barra de acciones */
 @media (min-width: 600px) {
   .ax-actions-bar {
