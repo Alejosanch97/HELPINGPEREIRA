@@ -10,7 +10,7 @@ const API_URL =
 
 const clean = (v) => (v == null ? "" : String(v).trim());
 const num = (v) => { const n = Number(clean(v).replace(",", ".")); return isNaN(n) ? 0 : n; };
-const RADIO_KM = 20;
+const RADIO_KM = 7;
 
 const iconoShelter = L.divIcon({ className: "ax-marker", html: `<span class="ax-pin ax-pin-shelter">🏠</span>`, iconSize: [34, 34], iconAnchor: [17, 34], popupAnchor: [0, -32] });
 const iconoYo = L.divIcon({ className: "ax-marker", html: `<span class="ax-pin ax-pin-me"></span>`, iconSize: [22, 22], iconAnchor: [11, 11] });

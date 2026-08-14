@@ -7,7 +7,7 @@ const API_URL =
 
 const CLAVE = "AYUDA2026";
 const SESSION_KEY = "ax_shelter_sesion";
-const RADIO_KM = 20;
+const RADIO_KM = 7;
 
 const clean = (v) => (v == null ? "" : String(v).trim());
 const num = (v) => { const n = Number(clean(v).replace(",", ".")); return isNaN(n) ? 0 : n; };
