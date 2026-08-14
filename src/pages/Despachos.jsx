@@ -19,8 +19,8 @@ async function fetchBoard() {
   const res = await fetch(`${API_URL}?action=board`);
   return res.json();
 }
-async function getSheet(sheet) {
-  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}&fresh=1`);
+async function getSheet(sheet, fresh = false) {
+  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}${fresh ? "&fresh=1" : ""}`);
   const data = await res.json();
   return Array.isArray(data) ? data : [];
 }

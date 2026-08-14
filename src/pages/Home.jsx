@@ -24,6 +24,13 @@ async function fetchBoard() {
   const res = await fetch(`${API_URL}?action=board`);
   return res.json();
 }
+
+async function fetchTransportes() {
+  const res = await fetch(`${API_URL}?action=transportes`);
+  const d = await res.json();
+  return Array.isArray(d) ? d : [];
+}
+
 async function postAction(body) {
   const res = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) });
   return res.json();
@@ -39,6 +46,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const [shelters, setShelters] = useState([]);
   const [board, setBoard] = useState([]);
+  const [transportes, setTransportes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [miPos, setMiPos] = useState(null);
   const [modal, setModal] = useState(null); // 'donar' | 'voluntario' | 'vehiculo' | null
@@ -46,9 +54,10 @@ export const Home = () => {
 
   const cargar = useCallback(async () => {
     try {
-      const [sh, bd] = await Promise.all([fetchSheet("SHELTERS"), fetchBoard()]);
+      const [sh, bd, tr] = await Promise.all([fetchSheet("SHELTERS"), fetchBoard(), fetchTransportes()]);
       setShelters(sh);
       setBoard(Array.isArray(bd) ? bd : []);
+      setTransportes(Array.isArray(tr) ? tr : []);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
   }, []);
@@ -102,6 +111,19 @@ export const Home = () => {
     });
     return m;
   }, [board]);
+
+  // transportes cercanos: el punto de recogida (origen) está dentro del radio
+  const transportesCercanos = useMemo(() => {
+    if (!miPos) return [];
+    return transportes
+      .map((t) => {
+        const lat = num(t.origen_lat), lng = num(t.origen_lng);
+        const dist = lat && lng ? distanciaKm(miPos, [lat, lng]) : null;
+        return { ...t, dist };
+      })
+      .filter((t) => t.dist != null && t.dist <= RADIO_KM)
+      .sort((a, b) => a.dist - b.dist);
+  }, [transportes, miPos]);
 
   const centro = miPos; // el mapa solo se dibuja cuando ya tenemos tu ubicación
 
@@ -181,6 +203,31 @@ export const Home = () => {
           <span className="ax-big-lock">🔒</span>
         </button>
 
+        {/* ALERTA: transportes que necesitan quien los lleve */}
+        {transportesCercanos.length > 0 && (
+          <div className="ax-transporte-alerta">
+            <div className="ax-transporte-alerta-head">
+              <span className="ax-transporte-icon">🚨</span>
+              <b>Se necesita transporte cerca de ti</b>
+            </div>
+            <ul className="ax-transporte-list">
+              {transportesCercanos.map((t) => (
+                <li key={t.id_despacho} className="ax-transporte-card ax-glass">
+                  <div className="ax-transporte-ruta">
+                    <b>{clean(t.origen_nombre)}</b>
+                    <span className="ax-transporte-flecha">→</span>
+                    <b>{clean(t.destino_nombre)}</b>
+                  </div>
+                  <small>Recogida a {t.dist != null ? `${t.dist.toFixed(1)} km` : "?"} de ti</small>
+                  <button className="ax-transporte-btn" onClick={() => setModal({ tipo: "transporte", despacho: t })}>
+                    🚗 Yo lo llevo
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         {/* ACCIONES CIUDADANAS (sin clave) */}
         <div className="ax-ayudar-head"><span className="ax-eyebrow">QUIERO AYUDAR</span></div>
         <div className="ax-ayudar-grid">
@@ -205,6 +252,9 @@ export const Home = () => {
       {modal === "donar" && <ModalDonar shelters={cercanos} onClose={() => setModal(null)} />}
       {modal === "voluntario" && <ModalVoluntario shelters={cercanos} onClose={() => setModal(null)} />}
       {modal === "vehiculo" && <ModalVehiculo onClose={() => setModal(null)} />}
+      {modal && modal.tipo === "transporte" && (
+        <ModalTransporte despacho={modal.despacho} onClose={() => setModal(null)} onTomado={cargar} />
+      )}
     </div>
   );
 };
@@ -345,6 +395,42 @@ const ModalVehiculo = ({ onClose }) => {
         <label className="ax-field"><span>Zona donde te mueves (opcional)</span><input value={zona} onChange={(e) => setZona(e.target.value)} placeholder="Ej: centro, norte" /></label>
         {error && <p className="ax-form-error">{error}</p>}
         <button className="ax-submit" onClick={enviar} disabled={enviando}>{enviando ? "Enviando…" : "Ofrecer mi vehículo"}</button>
+      </div>
+    </ModalShell>
+  );
+};
+
+/* ---------- TOMAR TRANSPORTE ---------- */
+const ModalTransporte = ({ despacho, onClose, onTomado }) => {
+  const [nombre, setNombre] = useState(""); const [tel, setTel] = useState("");
+  const [enviando, setEnviando] = useState(false); const [error, setError] = useState(""); const [ok, setOk] = useState(false);
+
+  const enviar = async () => {
+    setError("");
+    if (!clean(nombre)) return setError("Escribe tu nombre.");
+    if (!clean(tel)) return setError("Escribe tu teléfono.");
+    setEnviando(true);
+    try {
+      const r = await postAction({ action: "tomar_transporte", id_despacho: despacho.id_despacho, nombre: clean(nombre), telefono: clean(tel) });
+      if (r && r.status === "success") { setOk(true); setTimeout(() => { onClose(); onTomado && onTomado(); }, 1400); }
+      else setError((r && r.message) || "No se pudo registrar.");
+    } catch (e) { setError("Fallo de red."); } finally { setEnviando(false); }
+  };
+
+  return (
+    <ModalShell title="Yo lo llevo" onClose={onClose} ok={ok} okText="¡Gracias! Transporte asignado">
+      <div className="ax-form">
+        <div className="ax-transporte-ruta ax-transporte-ruta-modal">
+          <b>{clean(despacho.origen_nombre)}</b>
+          <span className="ax-transporte-flecha">→</span>
+          <b>{clean(despacho.destino_nombre)}</b>
+        </div>
+        {clean(despacho.origen_tel) && <a href={`tel:${clean(despacho.origen_tel)}`} className="ax-popup-call">☎ Recogida: {clean(despacho.origen_tel)}</a>}
+        {clean(despacho.destino_tel) && <a href={`tel:${clean(despacho.destino_tel)}`} className="ax-popup-call">☎ Entrega: {clean(despacho.destino_tel)}</a>}
+        <label className="ax-field"><span>Tu nombre *</span><input value={nombre} onChange={(e) => setNombre(e.target.value)} /></label>
+        <label className="ax-field"><span>Tu teléfono *</span><input value={tel} inputMode="tel" onChange={(e) => setTel(e.target.value)} /></label>
+        {error && <p className="ax-form-error">{error}</p>}
+        <button className="ax-submit" onClick={enviar} disabled={enviando}>{enviando ? "Enviando…" : "Confirmar que lo llevo"}</button>
       </div>
     </ModalShell>
   );

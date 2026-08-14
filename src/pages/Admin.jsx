@@ -208,7 +208,7 @@ export const Admin = () => {
 
   useEffect(() => {
     if (clave) cargarLookups();
-  }, [clave, cargarLookups, tab]);
+  }, [clave, cargarLookups]);
 
   const entrar = async () => {
     setError("");

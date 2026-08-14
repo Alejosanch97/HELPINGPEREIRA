@@ -13,8 +13,8 @@ const clean = (v) => (v == null ? "" : String(v).trim());
 const num = (v) => { const n = Number(clean(v).replace(",", ".")); return isNaN(n) ? 0 : n; };
 const PRIORIDAD_LABEL = { 1: "Crítica", 2: "Alta", 3: "Media", 4: "Baja" };
 
-async function getSheet(sheet) {
-  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}&fresh=1`);
+async function getSheet(sheet, fresh = false) {
+  const res = await fetch(`${API_URL}?sheet=${encodeURIComponent(sheet)}${fresh ? "&fresh=1" : ""}`);
   const d = await res.json(); return Array.isArray(d) ? d : [];
 }
 async function getBoard() { const res = await fetch(`${API_URL}?action=board`); return res.json(); }
@@ -56,10 +56,12 @@ export const Shelter = () => {
   const cargarTodo = useCallback(async () => {
     setLoading(true);
     try {
-      const [sh, bd, inv, cat] = await Promise.all([
-        getSheet("SHELTERS"), getBoard(), getSheet("INVENTARIO"), getSheet("CATEGORIAS"),
-      ]);
-      setShelters(sh); setBoard(Array.isArray(bd) ? bd : []); setInventario(inv); setCategorias(cat);
+      const res = await fetch(`${API_URL}?action=bootstrap`);
+      const d = await res.json();
+      setShelters(Array.isArray(d.shelters) ? d.shelters : []);
+      setBoard(Array.isArray(d.board) ? d.board : []);
+      setInventario(Array.isArray(d.inventario) ? d.inventario : []);
+      setCategorias(Array.isArray(d.categorias) ? d.categorias : []);
     } catch (e) { console.error(e); } finally { setLoading(false); }
   }, []);
 
