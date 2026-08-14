@@ -7,6 +7,7 @@ const API_URL =
 
 const CLAVE = "AYUDA2026";
 const SESSION_KEY = "ax_shelter_sesion";
+const RADIO_KM = 20;
 
 const clean = (v) => (v == null ? "" : String(v).trim());
 const num = (v) => { const n = Number(clean(v).replace(",", ".")); return isNaN(n) ? 0 : n; };
@@ -88,14 +89,16 @@ export const Shelter = () => {
   const misPedidos = useMemo(() => board.filter((p) => clean(p.id_shelter) === clean(miShelterId)), [board, miShelterId]);
 
   const pedidosOtros = useMemo(() => {
-    const otros = board.filter((p) => clean(p.id_shelter) !== clean(miShelterId) && clean(p.estado) === "PENDIENTE");
-    if (!miPos) return otros.map((p) => ({ ...p, dist: null }));
-    return otros.map((p) => {
-      const lat = num(p.latitud), lng = num(p.longitud);
-      const dist = lat && lng ? distanciaKm(miPos, [lat, lng]) : null;
-      return { ...p, dist };
-    }).sort((a, b) => (a.dist ?? 9999) - (b.dist ?? 9999));
-  }, [board, miShelterId, miPos]);
+  const otros = board.filter((p) => clean(p.id_shelter) !== clean(miShelterId) && clean(p.estado) === "PENDIENTE");
+  if (!miPos) return otros.map((p) => ({ ...p, dist: null }));
+  return otros.map((p) => {
+    const lat = num(p.latitud), lng = num(p.longitud);
+    const dist = lat && lng ? distanciaKm(miPos, [lat, lng]) : null;
+    return { ...p, dist };
+  })
+  .filter((p) => p.dist != null && p.dist <= RADIO_KM)   // ← agrega esto
+  .sort((a, b) => (a.dist ?? 9999) - (b.dist ?? 9999));
+}, [board, miShelterId, miPos]);
 
   /* ---------------- PANTALLA CLAVE ---------------- */
   if (!clave) {
