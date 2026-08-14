@@ -109,7 +109,7 @@ export const Shelter = () => {
         <div className="sh-bg"><span className="sh-blob sh-blob-1" /><span className="sh-blob sh-blob-2" /></div>
         <div className="sh-gate-card sh-glass">
           <span className="sh-gate-icon">🏠</span>
-          <h1>Acceso de shelter</h1>
+          <h1>Acceso Punto de Ayuda</h1>
           <p>Ingresa la clave para gestionar tu refugio.</p>
           <input type="password" className="sh-gate-input" placeholder="Clave" value={input}
             onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === "Enter" && entrar()} autoFocus />
@@ -127,28 +127,27 @@ export const Shelter = () => {
       <div className="sh-panel">
         <div className="sh-bg"><span className="sh-blob sh-blob-1" /><span className="sh-blob sh-blob-2" /></div>
         <header className="sh-top">
-          <div className="sh-brand"><span className="sh-logo">◈</span><div className="sh-brand-txt"><b>SHELTER</b><small>Selecciona el tuyo</small></div></div>
+          <div className="sh-brand"><span className="sh-logo">◈</span><div className="sh-brand-txt"><b>PUNTO DE AYUDA</b><small>Selecciona el tuyo</small></div></div>
           <div className="sh-top-actions">
             <Link to="/" className="sh-inicio-btn" title="Ir al inicio">
-              <span className="sh-inicio-txt">Inicio</span>
             </Link>
             <button className="sh-logout" onClick={salir} title="Cerrar sesión">⏻</button>
           </div>
         </header>
         <main className="sh-content">
-          <h2 className="sh-h2">¿Cuál es tu shelter?</h2>
+          <h2 className="sh-h2">¿Cuál es tu punto de ayuda?</h2>
 
           {/* Botón grande: crear un shelter nuevo con mi ubicación */}
           <button className="sh-crear-big" onClick={() => setModalCrear(true)}>
             <span className="sh-crear-icon">📍</span>
-            <span className="sh-crear-txt"><b>CREAR NUEVO SHELTER</b><small>Se guarda en tu ubicación actual</small></span>
+            <span className="sh-crear-txt"><b>CREAR NUEVO PUNTO DE AYUDA</b><small>Se guarda en tu ubicación actual</small></span>
             <span className="sh-crear-plus">+</span>
           </button>
 
           {loading ? (
             <div className="sh-skel-wall">{[0,1,2].map((i) => <div key={i} className="sh-skel" />)}</div>
           ) : shelters.length === 0 ? (
-            <div className="sh-empty sh-glass"><p>Aún no hay shelters. Crea el primero con tu ubicación.</p></div>
+            <div className="sh-empty sh-glass"><p>Aún no hay puntos de ayuda. Crea el primero con tu ubicación.</p></div>
           ) : (
             <ul className="sh-select-list">
               {shelters.map((s) => (
@@ -186,18 +185,28 @@ export const Shelter = () => {
         <div className="sh-top-actions">
           <button className="sh-change" onClick={() => setMiShelterId(null)} title="Cambiar shelter">⇄</button>
           <Link to="/" className="sh-inicio-btn" title="Ir al inicio">
-            <span className="sh-inicio-txt">Inicio</span>
           </Link>
           <button className="sh-logout" onClick={salir} title="Cerrar sesión">⏻</button>
         </div>
       </header>
 
-      <nav className="sh-tabs">
-        <button className={`sh-tab ${tab==="resumen"?"on":""}`} onClick={() => setTab("resumen")}>📋 Resumen</button>
-        <button className={`sh-tab ${tab==="inventario"?"on":""}`} onClick={() => setTab("inventario")}>📦 Inventario</button>
-        <button className={`sh-tab ${tab==="pedir"?"on":""}`} onClick={() => setTab("pedir")}>✋ Pedir</button>
-        <button className={`sh-tab ${tab==="responder"?"on":""}`} onClick={() => setTab("responder")}>
-          🚚 Responder{pedidosOtros.length ? <span className="sh-tab-badge">{pedidosOtros.length}</span> : null}
+      <nav className="sh-bottomnav">
+        <button className={`sh-navbtn ${tab==="resumen"?"on":""}`} onClick={() => setTab("resumen")}>
+          <span className="sh-navicon">📋</span>
+          <span className="sh-navlabel">Resumen</span>
+        </button>
+        <button className={`sh-navbtn ${tab==="inventario"?"on":""}`} onClick={() => setTab("inventario")}>
+          <span className="sh-navicon">📦</span>
+          <span className="sh-navlabel">Inventario</span>
+        </button>
+        <button className={`sh-navbtn ${tab==="pedir"?"on":""}`} onClick={() => setTab("pedir")}>
+          <span className="sh-navicon">✋</span>
+          <span className="sh-navlabel">Pedir</span>
+        </button>
+        <button className={`sh-navbtn ${tab==="responder"?"on":""}`} onClick={() => setTab("responder")}>
+          <span className="sh-navicon">🚚</span>
+          <span className="sh-navlabel">Responder</span>
+          {pedidosOtros.length ? <span className="sh-nav-badge">{pedidosOtros.length}</span> : null}
         </button>
       </nav>
 
@@ -257,7 +266,7 @@ function ModalCrearShelter({ onClose, onCreado }) {
         latitud: pos[0], longitud: pos[1],
       });
       if (r && r.status === "success") { setOk(true); setTimeout(() => onCreado(r.id_shelter), 1300); }
-      else setError((r && r.message) || "No se pudo crear el shelter.");
+      else setError((r && r.message) || "No se pudo crear el punto de ayuda.");
     } catch (e) { setError("Fallo de red."); } finally { setEnviando(false); }
   };
 
@@ -266,23 +275,23 @@ function ModalCrearShelter({ onClose, onCreado }) {
       <div className="sh-modal sh-glass" onClick={(e) => e.stopPropagation()}>
         {ok ? (
           <div className="sh-ok-box" style={{ padding: "20px 0" }}>
-            <span className="sh-ok-check">✓</span><p>Shelter creado en tu ubicación.</p>
+            <span className="sh-ok-check">✓</span><p>Punto de ayuda creado en tu ubicación.</p>
           </div>
         ) : (
           <>
-            <div className="sh-modal-head"><h3>Crear shelter</h3><button className="sh-modal-x" onClick={onClose}>✕</button></div>
+            <div className="sh-modal-head"><h3>Crear Punto de Ayuda</h3><button className="sh-modal-x" onClick={onClose}>✕</button></div>
             <div className="sh-form">
               <div className={`sh-gps-box ${pos ? "ok" : ""}`}>
                 {buscandoGps ? <span>📍 Obteniendo tu ubicación…</span>
                   : pos ? <span>📍 Ubicación lista ({pos[0].toFixed(4)}, {pos[1].toFixed(4)})</span>
                   : <button type="button" className="sh-gps-retry" onClick={pedirGps}>📍 Activar mi ubicación</button>}
               </div>
-              <label className="sh-field"><span>Nombre del shelter *</span><input value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Ej: Refugio Colegio Central" /></label>
+              <label className="sh-field"><span>Nombre del punto de ayuda *</span><input value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Ej: Refugio Colegio Central" /></label>
               <label className="sh-field"><span>Teléfono de contacto *</span><input value={telefono} inputMode="tel" onChange={(e) => setTelefono(e.target.value)} placeholder="Ej: 3001234567" /></label>
               <label className="sh-field"><span>Responsable (opcional)</span><input value={responsable} onChange={(e) => setResponsable(e.target.value)} /></label>
               <label className="sh-field"><span>Capacidad de personas (opcional)</span><input type="number" inputMode="numeric" value={capacidad} onChange={(e) => setCapacidad(e.target.value)} placeholder="Ej: 200" /></label>
               {error && <p className="sh-form-error">{error}</p>}
-              <button className="sh-save" onClick={crear} disabled={enviando || !pos}>{enviando ? "Creando…" : "Crear shelter aquí"}</button>
+              <button className="sh-save" onClick={crear} disabled={enviando || !pos}>{enviando ? "Creando…" : "Crear punto de ayuda aquí"}</button>
             </div>
           </>
         )}
@@ -450,7 +459,7 @@ function PedirTab({ clave, miShelterId, categorias, onEnviado }) {
     } catch (e) { setError("Fallo de red."); } finally { setEnviando(false); }
   };
 
-  if (ok) return <div className="sh-empty sh-glass sh-ok-box"><span className="sh-ok-check">✓</span><p>Pedido enviado. Otros shelters ya pueden verlo.</p></div>;
+  if (ok) return <div className="sh-empty sh-glass sh-ok-box"><span className="sh-ok-check">✓</span><p>Pedido enviado. Otros puntos de ayuda ya pueden verlo.</p></div>;
 
   return (
     <>
@@ -512,10 +521,10 @@ function ResponderTab({ clave, miShelterId, pedidos, miInventario, onDespachado 
   return (
     <>
       <h2 className="sh-h2">Responder pedidos</h2>
-      <p className="sh-sub">Pedidos de otros shelters cercanos. Si tienes el insumo, puedes enviarlo desde tu inventario.</p>
+      <p className="sh-sub">Pedidos de otros puntos de ayuda cercanos. Si tienes el insumo, puedes enviarlo desde tu inventario.</p>
 
       {pedidos.length === 0 ? (
-        <div className="sh-empty sh-glass"><span className="sh-ok-check">✓</span><p>No hay pedidos de otros shelters ahora.</p></div>
+        <div className="sh-empty sh-glass"><span className="sh-ok-check">✓</span><p>No hay pedidos de otros puntos de ayuda ahora.</p></div>
       ) : (
         <ul className="sh-cards">
           {pedidos.map((p) => {
@@ -540,7 +549,7 @@ function ResponderTab({ clave, miShelterId, pedidos, miInventario, onDespachado 
                     );
                   })}
                 </ul>
-                {clean(p.telefono) && <a href={`tel:${clean(p.telefono)}`} className="sh-call">☎ Llamar al shelter</a>}
+                {clean(p.telefono) && <a href={`tel:${clean(p.telefono)}`} className="sh-call">☎ Llamar al punto de ayuda</a>}
                 <button className={`sh-responder-btn ${cubre ? "" : "sh-disabled"}`} disabled={!cubre} onClick={() => setSel(p)}>
                   {cubre ? "Enviar de mi inventario" : "No tengo estos insumos"}
                 </button>

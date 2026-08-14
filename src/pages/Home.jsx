@@ -145,7 +145,7 @@ export const Home = () => {
         {/* MAPA */}
         <section className="ax-map-card ax-glass">
           <div className="ax-map-head">
-            <span className="ax-eyebrow">SHELTERS CERCANOS</span>
+            <span className="ax-eyebrow">PUNTO DE AYUDA CERCANOS</span>
             <span className="ax-map-count-inline">{loading ? "…" : `${cercanos.length} cercanos`}</span>
           </div>
           <div className="ax-map-box">
@@ -183,7 +183,7 @@ export const Home = () => {
               <div className="ax-map-esperando">
                 <span className="ax-map-spinner" />
                 <p>Ubicándote…</p>
-                <span className="ax-map-esperando-sub">Necesitamos tu ubicación para mostrarte los shelters cercanos.</span>
+                <span className="ax-map-esperando-sub">Necesitamos tu ubicación para mostrarte los puntos de ayuda cercanos.</span>
                 <button className="ax-gps-activar" onClick={() => {
                   navigator.geolocation.getCurrentPosition(
                     (p) => setMiPos([p.coords.latitude, p.coords.longitude]),
@@ -199,7 +199,7 @@ export const Home = () => {
         {/* ACCIÓN PRINCIPAL: entrar como shelter */}
         <button className="ax-big-refugio" onClick={() => navigate("/shelter")}>
           <span className="ax-big-icon">🏠</span>
-          <span className="ax-big-txt"><b>SOY UN SHELTER</b><small>Ingresar para gestionar y pedir ayuda</small></span>
+          <span className="ax-big-txt"><b>SOY UN PUNTO DE AYUDA</b><small>Ingresar para gestionar</small></span>
           <span className="ax-big-lock">🔒</span>
         </button>
 
