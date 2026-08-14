@@ -1,0 +1,1680 @@
+/* ============================================================
+   RED DE AYUDA — HOME (mobile-first, glassmorphism claro)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+.ax-home {
+  --bg: #eef3fb;
+  --bg2: #e2ebf7;
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-brd: rgba(255, 255, 255, 0.75);
+  --ink: #1b2437;
+  --ink-soft: #5b6478;
+  --dim: #8a93a6;
+  --brand: #2f6fed;
+  --brand-soft: #dbe6ff;
+  --sos: #ff4d5e;
+  --sos-2: #ff6b57;
+  --ok: #1fb877;
+
+  /* prioridad */
+  --p1: #ff4d5e;
+  --p2: #ff9f1c;
+  --p3: #2f6fed;
+  --p4: #8a93a6;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------- FONDO DECORATIVO ---------------- */
+.ax-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ax-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+.ax-blob-1 {
+  width: 300px; height: 300px;
+  background: #7aa8ff;
+  top: -80px; left: -60px;
+}
+.ax-blob-2 {
+  width: 260px; height: 260px;
+  background: #ffc7cf;
+  top: 30%; right: -80px;
+}
+.ax-blob-3 {
+  width: 240px; height: 240px;
+  background: #b7f5da;
+  bottom: -60px; left: 20%;
+}
+
+/* ---------------- GLASS BASE ---------------- */
+.ax-glass {
+  background: var(--glass);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--glass-brd);
+  box-shadow: 0 8px 30px rgba(31, 45, 80, 0.08);
+}
+
+/* ---------------- TOP BAR ---------------- */
+.ax-top {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(14px + env(safe-area-inset-top)) 18px 14px;
+}
+.ax-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ax-logo {
+  width: 40px; height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--brand), #5b8dff);
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 6px 16px rgba(47, 111, 237, 0.32);
+}
+.ax-brand-txt {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.ax-brand-txt b {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+.ax-brand-txt small {
+  font-size: 10.5px;
+  color: var(--dim);
+}
+.ax-refresh {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  border: none;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-brd);
+  color: var(--brand);
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.ax-refresh:active { transform: rotate(180deg) scale(0.9); }
+
+/* ---------------- MAIN ---------------- */
+.ax-main {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 8px 16px calc(96px + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* ---------------- HÉROE / SOS ---------------- */
+.ax-hero {
+  text-align: center;
+  padding: 26px 0 30px;
+}
+.ax-hero-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--ink-soft);
+}
+.ax-sos {
+  position: relative;
+  display: block;
+  width: 210px;
+  height: 210px;
+  margin: 20px auto 22px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background: radial-gradient(circle at 35% 30%, var(--sos-2), var(--sos) 70%);
+  box-shadow:
+    0 20px 50px rgba(255, 77, 94, 0.4),
+    inset 0 2px 6px rgba(255, 255, 255, 0.4);
+  transition: transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ax-sos:active { transform: scale(0.96); }
+.ax-sos-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--sos);
+  opacity: 0.6;
+  animation: ax-pulse 2.4s ease-out infinite;
+}
+@keyframes ax-pulse {
+  0% { transform: scale(1); opacity: 0.55; }
+  70% { transform: scale(1.28); opacity: 0; }
+  100% { opacity: 0; }
+}
+.ax-sos-inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+}
+.ax-sos-icon { font-size: 52px; line-height: 1; }
+.ax-sos-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.ax-hero-note {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ---------------- STATS ---------------- */
+.ax-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.ax-stat {
+  border-radius: 18px;
+  padding: 16px 8px;
+  text-align: center;
+}
+.ax-stat b {
+  display: block;
+  font-family: 'Sora', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--ink);
+}
+.ax-stat span {
+  display: block;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  line-height: 1.3;
+}
+.ax-stat-crit b { color: var(--sos); }
+
+/* ---------------- QUEUE ---------------- */
+.ax-queue-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 2px;
+}
+.ax-queue-head h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.ax-queue-sub {
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.ax-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ax-card {
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  animation: ax-rise 0.35s ease backwards;
+}
+.ax-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--dim);
+}
+.ax-prio-1::before { background: var(--p1); }
+.ax-prio-2::before { background: var(--p2); }
+.ax-prio-3::before { background: var(--p3); }
+.ax-prio-4::before { background: var(--p4); }
+@keyframes ax-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.ax-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ax-card-shelter b {
+  display: block;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.ax-card-shelter small {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.ax-badge {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 20px;
+  color: #fff;
+}
+.ax-badge-1 { background: var(--p1); }
+.ax-badge-2 { background: var(--p2); }
+.ax-badge-3 { background: var(--p3); }
+.ax-badge-4 { background: var(--p4); }
+
+.ax-items {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ax-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(27, 36, 55, 0.07);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.ax-items li:last-child { border: none; }
+.ax-items li b {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px;
+  color: var(--brand);
+  white-space: nowrap;
+}
+.ax-items-more {
+  justify-content: center !important;
+  color: var(--dim) !important;
+  font-size: 11.5px !important;
+}
+.ax-card-obs {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-style: italic;
+  line-height: 1.45;
+  margin: 0 0 12px;
+}
+.ax-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ax-call {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--brand);
+  text-decoration: none;
+  background: var(--brand-soft);
+  padding: 7px 14px;
+  border-radius: 10px;
+}
+.ax-call:active { transform: scale(0.96); }
+.ax-card-date {
+  font-size: 11px;
+  color: var(--dim);
+}
+
+/* ---------------- EMPTY ---------------- */
+.ax-empty {
+  border-radius: 18px;
+  padding: 34px 20px;
+  text-align: center;
+}
+.ax-empty-icon {
+  display: block;
+  width: 52px; height: 52px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: rgba(31, 184, 119, 0.14);
+  color: var(--ok);
+  font-size: 26px;
+  line-height: 52px;
+}
+.ax-empty p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------------- SKELETON ---------------- */
+.ax-skeleton-wall {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ax-skeleton {
+  height: 120px;
+  border-radius: 18px;
+  background: linear-gradient(100deg,
+    rgba(255,255,255,0.4) 30%,
+    rgba(255,255,255,0.75) 50%,
+    rgba(255,255,255,0.4) 70%);
+  background-size: 200% 100%;
+  animation: ax-shimmer 1.3s infinite;
+}
+@keyframes ax-shimmer {
+  to { background-position: -200% 0; }
+}
+
+/* ---------------- FAB ---------------- */
+.ax-fab {
+  position: fixed;
+  right: 18px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 30;
+  width: 60px; height: 60px;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--sos-2), var(--sos) 72%);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(255, 77, 94, 0.45);
+  transition: transform 0.15s;
+}
+.ax-fab:active { transform: scale(0.92); }
+
+/* ---------------- MODAL ---------------- */
+.ax-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(27, 36, 55, 0.34);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: ax-fadein 0.2s ease;
+}
+@keyframes ax-fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.ax-modal {
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 26px 26px 0 0;
+  padding: 22px 20px calc(24px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.82);
+  animation: ax-slideup 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
+}
+@keyframes ax-slideup {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+.ax-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.ax-modal-head h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+}
+.ax-modal-x {
+  width: 34px; height: 34px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(27, 36, 55, 0.06);
+  color: var(--ink-soft);
+  font-size: 15px;
+  cursor: pointer;
+}
+.ax-modal-loading {
+  text-align: center;
+  color: var(--dim);
+  padding: 30px 0;
+}
+
+/* ---------------- FORM ---------------- */
+.ax-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ax-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ax-field > span {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.ax-field select,
+.ax-field input,
+.ax-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(27, 36, 55, 0.12);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 13px 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  outline: none;
+  transition: 0.15s;
+}
+.ax-field select:focus,
+.ax-field input:focus,
+.ax-field textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+.ax-field textarea { resize: none; }
+
+/* prioridad pills */
+.ax-prio-pills {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+}
+.ax-pill {
+  border: 1px solid rgba(27, 36, 55, 0.12);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 11px;
+  padding: 10px 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: 0.15s;
+}
+.ax-pill-1.on { background: var(--p1); border-color: var(--p1); color: #fff; }
+.ax-pill-2.on { background: var(--p2); border-color: var(--p2); color: #fff; }
+.ax-pill-3.on { background: var(--p3); border-color: var(--p3); color: #fff; }
+.ax-pill-4.on { background: var(--p4); border-color: var(--p4); color: #fff; }
+
+/* items */
+.ax-item-row {
+  display: grid;
+  grid-template-columns: 1fr 68px auto auto;
+  gap: 7px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.ax-item-row select,
+.ax-item-row input {
+  padding: 11px 10px;
+  font-size: 13px;
+}
+.ax-item-unit {
+  font-size: 10.5px;
+  color: var(--dim);
+  min-width: 34px;
+}
+.ax-item-del {
+  width: 30px; height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 77, 94, 0.1);
+  color: var(--sos);
+  font-size: 12px;
+  cursor: pointer;
+}
+.ax-add-item {
+  border: 1px dashed rgba(47, 111, 237, 0.4);
+  background: transparent;
+  border-radius: 11px;
+  padding: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--brand);
+  cursor: pointer;
+  margin-top: 2px;
+}
+.ax-add-item:active { transform: scale(0.98); }
+
+.ax-form-error {
+  font-size: 12.5px;
+  color: var(--sos);
+  background: rgba(255, 77, 94, 0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 0;
+}
+
+.ax-submit {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--sos-2), var(--sos));
+  box-shadow: 0 10px 24px rgba(255, 77, 94, 0.36);
+  cursor: pointer;
+  transition: 0.15s;
+}
+.ax-submit:active { transform: scale(0.98); }
+.ax-submit:disabled { opacity: 0.6; cursor: default; }
+
+/* modal ok */
+.ax-modal-ok {
+  text-align: center;
+  padding: 30px 16px 20px;
+}
+.ax-ok-check {
+  display: block;
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(31, 184, 119, 0.15);
+  color: var(--ok);
+  font-size: 32px;
+  line-height: 64px;
+  animation: ax-pop 0.4s cubic-bezier(0.2, 1.2, 0.3, 1);
+}
+@keyframes ax-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.ax-modal-ok h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.ax-modal-ok p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Botón "Coordinar" en la barra superior del Home
+   ============================================================ */
+
+.ax-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ax-admin-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-brd);
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.16s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ax-admin-link:active {
+  transform: scale(0.95);
+}
+.ax-admin-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Layout del Home con MAPA a pantalla completa
+   ============================================================ */
+
+/* El home con mapa ocupa toda la pantalla y no hace scroll de página */
+.ax-home-map {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top bar flotante sobre el mapa */
+.ax-top-float {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  background: transparent;
+}
+.ax-top-float .ax-brand {
+  background: var(--glass);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-brd);
+  border-radius: 14px;
+  padding: 8px 12px;
+  box-shadow: 0 8px 30px rgba(31, 45, 80, 0.12);
+}
+
+/* Contenedor del mapa */
+.ax-map-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.ax-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Leaflet: asegura que los controles queden bajo nuestros flotantes */
+.leaflet-container {
+  font-family: 'Inter', sans-serif;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 400;
+}
+
+/* Contador de refugios (flotante arriba-centro) */
+.ax-map-count {
+  position: absolute;
+  top: calc(70px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 450;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---------------- MARCADORES ---------------- */
+.ax-marker {
+  background: transparent;
+  border: none;
+}
+.ax-pin {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.ax-pin-shelter {
+  background: #fff;
+  border: 2px solid var(--brand);
+}
+.ax-pin-shelter::before {
+  content: "";
+}
+/* el emoji dentro se contrarrota para verse derecho */
+.ax-pin-shelter {
+  transform: rotate(0deg);
+  border-radius: 50%;
+}
+/* Punto "yo" (posición del usuario) */
+.ax-pin-me {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2f6fed;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 6px rgba(47, 111, 237, 0.25);
+  animation: ax-me-pulse 2s ease-out infinite;
+}
+@keyframes ax-me-pulse {
+  0% { box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.35); }
+  70% { box-shadow: 0 0 0 14px rgba(47, 111, 237, 0); }
+  100% { box-shadow: 0 0 0 4px rgba(47, 111, 237, 0); }
+}
+
+/* ---------------- POPUP ---------------- */
+.ax-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+.ax-popup b {
+  font-family: 'Sora', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+}
+.ax-popup-call {
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+}
+.ax-popup-badge {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--sos);
+  padding: 3px 9px;
+  border-radius: 12px;
+  align-self: flex-start;
+}
+.ax-popup-ok {
+  font-size: 11.5px;
+  color: var(--ok);
+  font-weight: 600;
+}
+
+/* ---------------- BARRA DE ACCIONES (abajo) ---------------- */
+.ax-actions-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 500;
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px calc(18px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(238, 243, 251, 0.95) 40%, transparent);
+}
+.ax-action {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  border: none;
+  border-radius: 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.14s;
+  box-shadow: 0 10px 26px rgba(31, 45, 80, 0.2);
+}
+.ax-action:active { transform: scale(0.97); }
+.ax-action-icon { font-size: 19px; }
+.ax-action-refugio {
+  background: linear-gradient(135deg, #5b8dff, var(--brand));
+}
+.ax-action-ayuda {
+  background: radial-gradient(circle at 35% 30%, var(--sos-2), var(--sos) 72%);
+}
+
+/* ---------------- GPS BOX en el modal ---------------- */
+.ax-gps-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 159, 28, 0.1);
+  border: 1px solid rgba(255, 159, 28, 0.3);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #a86a00;
+  text-align: center;
+}
+.ax-gps-box.ok {
+  background: rgba(31, 184, 119, 0.1);
+  border-color: rgba(31, 184, 119, 0.3);
+  color: #0e7a4d;
+}
+.ax-gps-retry {
+  border: none;
+  background: transparent;
+  color: #a86a00;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en RECUADRO (no pantalla completa) + acciones + marcadores
+   (Si ya pegaste una version anterior de home_mapa.css, reemplazala por esta)
+   ============================================================ */
+
+/* ---------------- Barra superior: acciones ---------------- */
+.ax-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ax-admin-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-brd);
+  color: var(--brand);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.16s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ax-admin-link:active { transform: scale(0.95); }
+.ax-admin-icon { font-size: 15px; line-height: 1; }
+@media (max-width: 380px) {
+  .ax-admin-txt { display: none; }
+  .ax-admin-link { padding: 0; width: 40px; justify-content: center; }
+}
+
+/* ---------------- TARJETA DEL MAPA ---------------- */
+.ax-map-card {
+  border-radius: 20px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+.ax-map-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+.ax-eyebrow {
+  font-family: 'Sora', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--ink-soft);
+}
+.ax-map-count-inline {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+/* El recuadro que contiene el mapa: altura fija y bordes redondeados */
+.ax-map-box {
+  width: 100%;
+  height: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-brd);
+  position: relative;
+  z-index: 1;
+}
+.ax-map {
+  width: 100%;
+  height: 100%;
+}
+.leaflet-container {
+  font-family: 'Inter', sans-serif;
+  background: #e8eef5;
+}
+
+.ax-map-note {
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 10px 0 2px;
+  line-height: 1.4;
+}
+
+/* En pantallas mas grandes, el mapa puede ser un poco mas alto */
+@media (min-width: 600px) {
+  .ax-map-box { height: 420px; }
+}
+
+/* ---------------- MARCADORES ---------------- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.ax-pin-shelter {
+  background: #fff;
+  border: 2px solid var(--brand);
+  border-radius: 50%;
+}
+.ax-pin-me {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2f6fed;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 6px rgba(47, 111, 237, 0.25);
+  animation: ax-me-pulse 2s ease-out infinite;
+}
+@keyframes ax-me-pulse {
+  0% { box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.35); }
+  70% { box-shadow: 0 0 0 14px rgba(47, 111, 237, 0); }
+  100% { box-shadow: 0 0 0 4px rgba(47, 111, 237, 0); }
+}
+
+/* ---------------- POPUP ---------------- */
+.ax-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 150px;
+}
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge {
+  font-size: 11.5px; font-weight: 600; color: #fff;
+  background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start;
+}
+.ax-popup-ok { font-size: 11.5px; color: var(--ok); font-weight: 600; }
+
+/* ---------------- BOTONES DE ACCION ---------------- */
+.ax-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.ax-action {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  border: none;
+  border-radius: 16px;
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.14s;
+  box-shadow: 0 10px 26px rgba(31, 45, 80, 0.18);
+}
+.ax-action:active { transform: scale(0.97); }
+.ax-action-icon { font-size: 19px; }
+.ax-action-refugio { background: linear-gradient(135deg, #5b8dff, var(--brand)); }
+.ax-action-ayuda { background: radial-gradient(circle at 35% 30%, var(--sos-2), var(--sos) 72%); }
+
+/* ---------------- GPS BOX (modal crear refugio) ---------------- */
+.ax-gps-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 159, 28, 0.1);
+  border: 1px solid rgba(255, 159, 28, 0.3);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #a86a00;
+  text-align: center;
+}
+.ax-gps-box.ok {
+  background: rgba(31, 184, 119, 0.1);
+  border-color: rgba(31, 184, 119, 0.3);
+  color: #0e7a4d;
+}
+.ax-gps-retry {
+  border: none;
+  background: transparent;
+  color: #a86a00;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ============================================================
+   FIX TILES — agregar al final de home.css
+   Fuerza que Leaflet llene su contenedor y los tiles no queden regados
+   ============================================================ */
+
+/* El recuadro debe tener altura EXPLÍCITA y contexto de posición */
+.ax-map-box {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-brd);
+}
+@media (min-width: 600px) {
+  .ax-map-box { height: 420px; }
+}
+
+/* El contenedor de Leaflet DEBE ocupar el 100% de la caja */
+.ax-map-box .leaflet-container,
+.ax-map {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  inset: 0;
+  background: #e8eef5;
+}
+
+/* Evita que los tiles se vean con costuras/gaps (bug de sub-pixel) */
+.leaflet-tile {
+  filter: inherit;
+}
+.leaflet-tile-container img {
+  width: 256.5px !important;
+  height: 256.5px !important;
+}
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Vista pública: lista de refugios + botón grande REFUGIO + modal clave
+   ============================================================ */
+
+/* ---------------- TARJETA LISTA DE REFUGIOS ---------------- */
+.ax-lista-card {
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.ax-shelter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ax-shelter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--glass-brd);
+  border-radius: 14px;
+}
+.ax-shelter-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ax-shelter-info b {
+  font-family: 'Sora', sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ax-shelter-info small { font-size: 11.5px; color: var(--ink-soft); }
+.ax-shelter-badge {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--sos);
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+.ax-shelter-ok {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(31, 184, 119, 0.15);
+  color: var(--ok);
+  font-size: 13px;
+  font-weight: 700;
+}
+.ax-skeleton-sm { height: 56px !important; }
+
+/* ---------------- BOTÓN GRANDE: REFUGIO ---------------- */
+.ax-big-refugio {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 18px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #5b8dff, var(--brand));
+  color: #fff;
+  box-shadow: 0 14px 34px rgba(47, 111, 237, 0.34);
+  transition: transform 0.14s;
+  margin-bottom: 24px;
+  text-align: left;
+}
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon {
+  width: 52px; height: 52px;
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 26px;
+}
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b {
+  font-family: 'Sora', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---------------- MODAL CLAVE ---------------- */
+.ax-clave-hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0;
+}
+.ax-clave-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(27, 36, 55, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 15px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  outline: none;
+  transition: 0.15s;
+}
+.ax-clave-input:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+}
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ---- loader mientras se busca ubicación ---- */
+.ax-map-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #e8eef5; }
+.ax-map-loading p { font-size: 12.5px; color: var(--ink-soft); }
+.ax-map-spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(47,111,237,0.2); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ---- loader mientras se busca ubicación ---- */
+.ax-map-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #e8eef5; }
+.ax-map-loading p { font-size: 12.5px; color: var(--ink-soft); }
+.ax-map-spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(47,111,237,0.2); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ---- botón reintentar GPS ---- */
+.ax-gps-reintentar { display: inline-block; margin-left: 8px; border: none; background: var(--brand-soft); color: var(--brand); font-weight: 700; font-size: 12px; padding: 6px 12px; border-radius: 10px; cursor: pointer; }
+.ax-gps-reintentar:active { transform: scale(0.96); }
+
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ---- loader mientras se busca ubicación ---- */
+.ax-map-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #e8eef5; }
+.ax-map-loading p { font-size: 12.5px; color: var(--ink-soft); }
+.ax-map-spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(47,111,237,0.2); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ---- botón reintentar GPS ---- */
+.ax-gps-reintentar { display: inline-block; margin-left: 8px; border: none; background: var(--brand-soft); color: var(--brand); font-weight: 700; font-size: 12px; padding: 6px 12px; border-radius: 10px; cursor: pointer; }
+.ax-gps-reintentar:active { transform: scale(0.96); }
+
+/* ---- banner de ubicación sobre el mapa (no bloquea) ---- */
+.ax-gps-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 500; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border: 1px solid var(--glass-brd); border-radius: 20px; padding: 7px 12px; font-size: 12px; color: var(--ink-soft); box-shadow: 0 6px 18px rgba(31,45,80,0.12); white-space: nowrap; }
+.ax-gps-spinner { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(47,111,237,0.25); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   AGREGAR AL FINAL DE home.css
+   Mapa en recuadro + botón shelter + tarjetas "quiero ayudar"
+   ============================================================ */
+
+/* ---- MAPA ---- */
+.ax-map-card { border-radius: 20px; padding: 14px; margin-bottom: 16px; }
+.ax-map-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 0 2px; }
+.ax-eyebrow { font-family: 'Sora', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--ink-soft); }
+.ax-map-count-inline { font-size: 11.5px; font-weight: 600; color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 12px; }
+.ax-map-box { position: relative; width: 100%; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-brd); }
+@media (min-width: 600px) { .ax-map-box { height: 400px; } }
+.ax-map-box .leaflet-container, .ax-map { width: 100% !important; height: 100% !important; position: absolute; inset: 0; background: #e8eef5; }
+.ax-map-note { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 10px 0 2px; }
+
+/* ---- marcadores ---- */
+.ax-marker { background: transparent; border: none; }
+.ax-pin { display: grid; place-items: center; width: 34px; height: 34px; font-size: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.ax-pin-shelter { background: #fff; border: 2px solid var(--brand); border-radius: 50%; }
+.ax-pin-me { width: 20px; height: 20px; border-radius: 50%; background: #2f6fed; border: 3px solid #fff; box-shadow: 0 0 0 6px rgba(47,111,237,0.25); animation: ax-me-pulse 2s ease-out infinite; }
+@keyframes ax-me-pulse { 0%{box-shadow:0 0 0 4px rgba(47,111,237,0.35);} 70%{box-shadow:0 0 0 14px rgba(47,111,237,0);} 100%{box-shadow:0 0 0 4px rgba(47,111,237,0);} }
+
+/* ---- popup ---- */
+.ax-popup { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.ax-popup b { font-family: 'Sora', sans-serif; font-size: 14px; color: var(--ink); }
+.ax-popup-call { color: var(--brand); font-weight: 600; font-size: 13px; text-decoration: none; }
+.ax-popup-badge { font-size: 11px; font-weight: 600; color: #fff; background: var(--sos); padding: 3px 9px; border-radius: 12px; align-self: flex-start; }
+.ax-popup-ok { font-size: 11px; color: var(--ok); font-weight: 600; }
+
+/* ---- botón grande shelter ---- */
+.ax-big-refugio { width: 100%; display: flex; align-items: center; gap: 14px; padding: 20px 18px; border: none; border-radius: 20px; cursor: pointer; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; box-shadow: 0 14px 34px rgba(47,111,237,0.34); transition: transform 0.14s; margin-bottom: 22px; text-align: left; }
+.ax-big-refugio:active { transform: scale(0.98); }
+.ax-big-icon { width: 52px; height: 52px; flex-shrink: 0; display: grid; place-items: center; border-radius: 14px; background: rgba(255,255,255,0.2); font-size: 26px; }
+.ax-big-txt { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.ax-big-txt b { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; letter-spacing: 0.5px; }
+.ax-big-txt small { font-size: 12px; opacity: 0.9; }
+.ax-big-lock { font-size: 18px; opacity: 0.85; }
+
+/* ---- sección "quiero ayudar" ---- */
+.ax-ayudar-head { margin-bottom: 12px; padding: 0 2px; }
+.ax-ayudar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px; }
+.ax-ayudar-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 18px 10px; border: 1px solid var(--glass-brd); border-radius: 18px; background: var(--glass); backdrop-filter: blur(14px); cursor: pointer; transition: transform 0.14s; text-align: center; }
+.ax-ayudar-card:active { transform: scale(0.96); }
+.ax-ayudar-icon { font-size: 30px; }
+.ax-ayudar-card b { font-family: 'Sora', sans-serif; font-size: 13.5px; color: var(--ink); }
+.ax-ayudar-card small { font-size: 10.5px; color: var(--ink-soft); line-height: 1.3; }
+@media (max-width: 420px) {
+  .ax-ayudar-grid { grid-template-columns: 1fr; }
+  .ax-ayudar-card { flex-direction: row; justify-content: flex-start; gap: 12px; text-align: left; padding: 16px; }
+}
+
+/* ---- item row (donar) ---- */
+.ax-item-row { display: flex; align-items: center; gap: 8px; }
+.ax-item-row input { flex: 1; }
+.ax-item-unit { font-size: 11px; color: var(--dim); min-width: 40px; }
+
+/* ---- loader mientras se busca ubicación ---- */
+.ax-map-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #e8eef5; }
+.ax-map-loading p { font-size: 12.5px; color: var(--ink-soft); }
+.ax-map-spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(47,111,237,0.2); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ---- botón reintentar GPS ---- */
+.ax-gps-reintentar { display: inline-block; margin-left: 8px; border: none; background: var(--brand-soft); color: var(--brand); font-weight: 700; font-size: 12px; padding: 6px 12px; border-radius: 10px; cursor: pointer; }
+.ax-gps-reintentar:active { transform: scale(0.96); }
+
+/* ---- banner de ubicación sobre el mapa (no bloquea) ---- */
+.ax-gps-banner { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 500; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border: 1px solid var(--glass-brd); border-radius: 20px; padding: 7px 12px; font-size: 12px; color: var(--ink-soft); box-shadow: 0 6px 18px rgba(31,45,80,0.12); white-space: nowrap; }
+.ax-gps-spinner { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(47,111,237,0.25); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+@keyframes ax-spin { to { transform: rotate(360deg); } }
+
+/* ---- estado de espera de ubicación (mapa aún no se dibuja) ---- */
+.ax-map-esperando { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: #e8eef5; padding: 24px; text-align: center; }
+.ax-map-esperando p { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); margin: 0; }
+.ax-map-esperando-sub { font-size: 12px; color: var(--ink-soft); max-width: 240px; line-height: 1.4; }
+.ax-map-spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(47,111,237,0.2); border-top-color: var(--brand); animation: ax-spin 0.8s linear infinite; }
+.ax-gps-activar { margin-top: 6px; border: none; background: linear-gradient(135deg, #5b8dff, var(--brand)); color: #fff; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 13px; padding: 11px 18px; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 20px rgba(47,111,237,0.3); }
+.ax-gps-activar:active { transform: scale(0.97); }
+
+/* En pantallas anchas, centra la barra de acciones */
+@media (min-width: 600px) {
+  .ax-actions-bar {
+    max-width: 560px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ax-map-count { max-width: 90%; }
+}
+
+/* En móviles muy angostos, oculta el texto y deja solo el candado */
+@media (max-width: 380px) {
+  .ax-admin-txt {
+    display: none;
+  }
+  .ax-admin-link {
+    padding: 0;
+    width: 40px;
+    justify-content: center;
+  }
+}
+
+/* ---------------- Accesibilidad ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ax-sos-pulse,
+  .ax-card,
+  .ax-skeleton,
+  .ax-modal,
+  .ax-ok-check { animation: none; }
+  .ax-sos, .ax-fab, .ax-submit { transition: none; }
+}
+
+/* ---------------- Desktop: centra y limita ---------------- */
+@media (min-width: 600px) {
+  .ax-modal-overlay { align-items: center; }
+  .ax-modal { border-radius: 26px; max-height: 88vh; }
+}
